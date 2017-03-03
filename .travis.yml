@@ -5,6 +5,7 @@ android:
     - 'tools'
     - 'build-tools-25.0.2'
     - 'android-25'
+    - 'extra-android-m2repository'
 
 jdk:
   - 'oraclejdk8'
@@ -21,10 +22,10 @@ cache:
     - '$HOME/.gradle/caches/'
     - '$HOME/.gradle/wrapper/'
 
-#after_success:
-#  - './gradlew jacocoReport'
-#  - 'bash <(curl -s https://codecov.io/bash)'
-#
+after_success:
+  - './gradlew jacocoReport'
+  - 'bash <(curl -s https://codecov.io/bash)'
+
 #deploy:
 #  provider: 'script'
 #  script: './gradlew bintrayUpload'

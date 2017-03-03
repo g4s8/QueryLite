@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.g4s8.quanta'
+apply plugin: 'jacoco'
 
 configurations {
     javadocDeps
@@ -18,10 +19,24 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
+
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    testOptions {
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses = true
+            }
         }
     }
 }
@@ -40,6 +55,43 @@ task javadoc(type: Javadoc) {
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from javadoc.destinationDir
+}
+
+task jacocoReport(type: JacocoReport) {
+    group = 'Reporting'
+    description = 'Generate Jacoco coverage reports after running tests.'
+
+    reports {
+        xml {
+            enabled = true
+            destination "${buildDir}/reports/jacoco/jacoco.xml"
+        }
+        html {
+            enabled = true
+            destination "${buildDir}/reports/jacoco"
+        }
+    }
+
+    classDirectories = fileTree(
+            dir: 'build/intermediates/classes/debug',
+            excludes: [
+                    '**/R*.class',
+                    '**/BuildConfig*',
+                    '**/*Exception.class',
+                    '**/*$$*'
+            ]
+    )
+
+    sourceDirectories = files('src/main/java')
+    executionData = files('build/jacoco/testDebugUnitTest.exec')
+
+    doFirst {
+        files('build/intermediates/classes/debug').getFiles().each { file ->
+            if (file.name.contains('$$')) {
+                file.renameTo(file.path.replace('$$', '$'))
+            }
+        }
+    }
 }
 
 artifacts {
