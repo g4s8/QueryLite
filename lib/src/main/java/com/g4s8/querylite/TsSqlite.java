@@ -4,7 +4,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.util.Pair;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -38,15 +37,21 @@ final class TsSqlite implements TableSource {
         final String whereString;
         final String[] whereArgs;
         if (where.size() > 0) {
-            final Pair<String, String[]> pair = TsSqlite.where(where);
-            whereString = pair.first;
-            whereArgs = pair.second;
+            final StringBuilder whereBuilder = new StringBuilder();
+            final List<String> args = new LinkedList<>();
+            for (int i = 0; i < where.size(); i++) {
+                whereBuilder.append(where.get(i).expression());
+                if (i < where.size() - 1) {
+                    whereBuilder.append(" AND ");
+                }
+                args.addAll(Arrays.asList(where.get(i).arguments()));
+            }
+            whereString = whereBuilder.toString();
+            whereArgs = args.toArray(new String[0]);
         } else {
-            // expected by sqlite lib value
             whereString = null;
             whereArgs = null;
         }
-
         return this.database.query(
             this.table,
             columns.toArray(new String[0]),
@@ -57,20 +62,6 @@ final class TsSqlite implements TableSource {
             TsSqlite.orderBy(orderBy),
             TsSqlite.limit(limit)
         );
-    }
-
-    @NonNull
-    private static Pair<String, String[]> where(@NonNull final List<WhereArg> where) {
-        final StringBuilder whereBuilder = new StringBuilder();
-        final List<String> args = new LinkedList<>();
-        for (int i = 0; i < where.size(); i++) {
-            whereBuilder.append(where.get(i).expression());
-            if (i < where.size() - 1) {
-                whereBuilder.append(" AND ");
-            }
-            args.addAll(Arrays.asList(where.get(i).arguments()));
-        }
-        return Pair.create(whereBuilder.toString(), args.toArray(new String[0]));
     }
 
     @Nullable

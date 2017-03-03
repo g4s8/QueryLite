@@ -1,6 +1,10 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.g4s8.quanta'
 
+configurations {
+    javadocDeps
+}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -22,8 +26,30 @@ android {
     }
 }
 
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    classpath += configurations.javadocDeps
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
 dependencies {
-    compile 'com.android.support:appcompat-v7:25.1.1'
+    compile 'com.android.support:support-annotations:25.1.1'
+    javadocDeps 'com.android.support:support-annotations:25.1.1'
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.hamcrest:hamcrest-all:1.3'
