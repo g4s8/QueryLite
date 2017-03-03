@@ -1,0 +1,6 @@
+docker:
+  image: g4s8/rlt2droid
+
+merge:
+  script: |
+    ./gradlew clean build
