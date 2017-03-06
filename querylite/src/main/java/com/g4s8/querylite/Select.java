@@ -34,7 +34,7 @@ public final class Select {
     /**
      * Make query for table source.
      *
-     * @param tableSource table source
+     * @param table A table to select from
      * @return new query
      */
     @NonNull
