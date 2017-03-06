@@ -26,9 +26,9 @@ after_success:
   - './gradlew jacocoReport'
   - 'bash <(curl -s https://codecov.io/bash)'
 
-#deploy:
-#  provider: 'script'
-#  script: './gradlew bintrayUpload'
-#  skip_cleanup: true
-#  on:
-#    tags: true
+deploy:
+  provider: 'script'
+  script: './gradlew bintrayUpload'
+  skip_cleanup: true
+  on:
+    tags: true
