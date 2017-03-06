@@ -19,11 +19,11 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 /**
- * Robolectric test for sqlite table source {@link TsSqlite}.
+ * Robolectric test for sqlite table source {@link TableSqlite}.
  */
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP)
-public final class TsSqliteTest {
+public final class TableSqliteTest {
 
     private static final String COL_NAME = "name";
     private static final String COL_ID = "id";
@@ -56,7 +56,7 @@ public final class TsSqliteTest {
         final SQLiteDatabase db = this.sqlite.getWritableDatabase();
         try {
             db.insert(TABLE, null, values("Jimmy"));
-            final Cursor cursor = new TsSqlite(TABLE, db).cursor(
+            final Cursor cursor = new TableSqlite(TABLE, db).cursor(
                 Arrays.asList(COL_NAME, COL_ID),
                 Collections.<WhereArg>emptyList(),
                 Collections.<String>emptyList(),
@@ -90,7 +90,7 @@ public final class TsSqliteTest {
         final String john = "John";
         try {
             db.insert(TABLE, null, values(john));
-            final Cursor cursor = new TsSqlite(TABLE, db).cursor(
+            final Cursor cursor = new TableSqlite(TABLE, db).cursor(
                 Collections.singletonList(COL_NAME),
                 Collections.singletonList(new WhereArg("name = ?", john)),
                 Collections.<String>emptyList(),
@@ -127,7 +127,7 @@ public final class TsSqliteTest {
             db.insert(TABLE, null, values("444"));
             db.insert(TABLE, null, values("999"));
             db.insert(TABLE, null, values("111"));
-            final Cursor cursor = new TsSqlite(TABLE, db).cursor(
+            final Cursor cursor = new TableSqlite(TABLE, db).cursor(
                 Collections.singletonList(COL_NAME),
                 Collections.<WhereArg>emptyList(),
                 Collections.singletonList("name"),
@@ -169,7 +169,7 @@ public final class TsSqliteTest {
             db.insert(TABLE, null, values("four"));
             db.insert(TABLE, null, values("six"));
             db.insert(TABLE, null, values("five"));
-            final Cursor cursor = new TsSqlite(TABLE, db).cursor(
+            final Cursor cursor = new TableSqlite(TABLE, db).cursor(
                 Collections.singletonList(COL_NAME),
                 Collections.<WhereArg>emptyList(),
                 Collections.<String>emptyList(),

@@ -38,11 +38,11 @@ public final class Select {
      * @return new query
      */
     @NonNull
-    public Query from(@NonNull final TableSource tableSource) {
+    public Query from(@NonNull final Table table) {
         return new QueryProjection(
             new PjTableSource(
                 this.columns,
-                tableSource
+                table
             )
         );
     }

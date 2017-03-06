@@ -13,12 +13,12 @@ import java.util.List;
  *
  * @since 1.0
  */
-final class TsSqlite implements TableSource {
+final class TableSqlite implements Table {
 
     private final String table;
     private final SQLiteDatabase database;
 
-    TsSqlite(
+    TableSqlite(
         @NonNull final String table,
         @NonNull final SQLiteDatabase database
     ) {
@@ -59,8 +59,8 @@ final class TsSqlite implements TableSource {
             whereArgs,
             null,
             null,
-            TsSqlite.orderBy(orderBy),
-            TsSqlite.limit(limit)
+            TableSqlite.orderBy(orderBy),
+            TableSqlite.limit(limit)
         );
     }
 

@@ -1,7 +1,8 @@
 package com.g4s8.querylite;
 
-import android.database.sqlite.SQLiteDatabase;
+import android.database.Cursor;
 import android.support.annotation.NonNull;
+import java.util.List;
 
 /**
  * Database table.
@@ -11,14 +12,21 @@ import android.support.annotation.NonNull;
 public interface Table {
 
     /**
-     * Table source in sqlite database.
+     * Cursor from this source.
      *
-     * @param db database
-     * @return table source
+     * @param columns columns to select
+     * @param where   where clause
+     * @param orderBy ordering
+     * @param limit   select result
+     * @return android cursor
      */
     @NonNull
-    @SuppressWarnings("PMD.ShortMethodName")
-    TableSource in(@NonNull final SQLiteDatabase db);
+    Cursor cursor(
+        @NonNull final List<String> columns,
+        @NonNull final List<WhereArg> where,
+        @NonNull final List<String> orderBy,
+        final long limit
+    );
 
     /**
      * Default decorator.
@@ -38,9 +46,18 @@ public interface Table {
 
         @NonNull
         @Override
-        @SuppressWarnings("PMD.ShortMethodName")
-        public final TableSource in(@NonNull final SQLiteDatabase db) {
-            return origin.in(db);
+        public final Cursor cursor(
+            @NonNull final List<String> columns,
+            @NonNull final List<WhereArg> where,
+            @NonNull final List<String> orderBy,
+            final long limit
+        ) {
+            return origin.cursor(
+                columns,
+                where,
+                orderBy,
+                limit
+            );
         }
     }
 }
