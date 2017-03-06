@@ -12,20 +12,20 @@ import java.util.List;
 final class PjTableSource implements Projection {
 
     private final List<String> columns;
-    private final TableSource source;
+    private final Table table;
 
     /**
      * Ctor.
      *
      * @param columns table columns
-     * @param source  table source
+     * @param table   table
      */
     PjTableSource(
         @NonNull final List<String> columns,
-        @NonNull final TableSource source
+        @NonNull final Table table
     ) {
         this.columns = columns;
-        this.source = source;
+        this.table = table;
     }
 
     @Override
@@ -35,7 +35,7 @@ final class PjTableSource implements Projection {
         @NonNull final List<String> order,
         final long limit
     ) {
-        return this.source.cursor(
+        return this.table.cursor(
             this.columns,
             where,
             order,

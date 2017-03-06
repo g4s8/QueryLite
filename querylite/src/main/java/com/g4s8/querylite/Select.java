@@ -34,15 +34,15 @@ public final class Select {
     /**
      * Make query for table source.
      *
-     * @param tableSource table source
+     * @param table A table to select from
      * @return new query
      */
     @NonNull
-    public Query from(@NonNull final TableSource tableSource) {
+    public Query from(@NonNull final Table table) {
         return new QueryProjection(
             new PjTableSource(
                 this.columns,
-                tableSource
+                table
             )
         );
     }

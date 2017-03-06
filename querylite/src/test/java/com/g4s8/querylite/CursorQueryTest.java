@@ -55,7 +55,7 @@ public final class CursorQueryTest {
         final long id = db.insert(TABLE, null, cv);
         final CursorQuery cursor = new CursorQuery(
             new Select(COL_NAME)
-                .from(new SqliteTable(TABLE).in(db))
+                .from(new TableSqlite(TABLE, db))
                 .where("id = ?", id)
         );
         cursor.moveToFirst();
