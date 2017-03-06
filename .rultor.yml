@@ -4,3 +4,7 @@ docker:
 merge:
   script: |
     ./gradlew clean build
+
+release:
+  script: |
+    echo $tag
