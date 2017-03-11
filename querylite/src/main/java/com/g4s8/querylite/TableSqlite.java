@@ -20,7 +20,7 @@ public final class TableSqlite implements Table {
     private final String table;
     private final SQLiteDatabase database;
 
-    TableSqlite(
+    public TableSqlite(
         @NonNull final String table,
         @NonNull final SQLiteDatabase database
     ) {
