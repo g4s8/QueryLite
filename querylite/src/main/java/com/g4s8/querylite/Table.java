@@ -1,6 +1,7 @@
 package com.g4s8.querylite;
 
 import android.database.Cursor;
+import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import java.util.List;
  *
  * @since 1.0
  */
+@Keep
 public interface Table {
 
     /**

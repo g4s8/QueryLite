@@ -1,5 +1,6 @@
 package com.g4s8.querylite;
 
+import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 import java.util.Arrays;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
  *
  * @since 1.0
  */
+@Keep
 public final class Select {
 
     private final List<String> columns;

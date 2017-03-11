@@ -1,6 +1,7 @@
 package com.g4s8.querylite;
 
 import android.database.CursorWrapper;
+import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 
 /**
@@ -8,6 +9,7 @@ import android.support.annotation.NonNull;
  *
  * @since 1.0
  */
+@Keep
 public final class CursorQuery extends CursorWrapper {
 
     /**
