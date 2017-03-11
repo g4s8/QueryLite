@@ -2,6 +2,7 @@ package com.g4s8.querylite;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import java.util.Arrays;
@@ -13,7 +14,8 @@ import java.util.List;
  *
  * @since 1.0
  */
-final class TableSqlite implements Table {
+@Keep
+public final class TableSqlite implements Table {
 
     private final String table;
     private final SQLiteDatabase database;
