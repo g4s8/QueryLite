@@ -51,12 +51,12 @@ public interface Query {
     /**
      * Base {@link Query} decorator.
      */
-    @SuppressWarnings("unused")
+    @Keep
     abstract class Wrap implements Query {
 
         private final Query origin;
 
-        protected Wrap(@NonNull final Query origin) {
+        public Wrap(@NonNull final Query origin) {
             this.origin = origin;
         }
 

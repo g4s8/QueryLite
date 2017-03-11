@@ -33,6 +33,7 @@ public interface Table {
     /**
      * Default decorator.
      */
+    @Keep
     abstract class Wrap implements Table {
 
         private final Table origin;
