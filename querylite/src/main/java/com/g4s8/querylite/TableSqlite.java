@@ -20,6 +20,12 @@ public final class TableSqlite implements Table {
     private final String table;
     private final SQLiteDatabase database;
 
+    /**
+     * Ctor.
+     *
+     * @param table    table name
+     * @param database android sqlite database
+     */
     public TableSqlite(
         @NonNull final String table,
         @NonNull final SQLiteDatabase database
